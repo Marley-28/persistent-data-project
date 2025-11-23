@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit Workout</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body data-page="edit">
+  <div class="page-wrapper">
+    <section class="form-panel card form-card">
+
+      <h2 class="form-title">Edit Workout</h2>
+
+      <div class="form-layout">
+
+        <!-- Left image preview -->
+        <div class="form-image-col">
+          <div class="image-frame" id="imagePreviewContainerEdit">
+            <img id="previewImgEdit" src="" alt="Preview" class="hidden" />
+            <div id="previewPlaceholderEdit" class="preview-placeholder">
+              Image preview will appear here.
+            </div>
+          </div>
+          <p class="image-hint">Paste an image URL to preview it here.</p>
+        </div>
+
+        <!-- Right form -->
+        <form id="editForm" class="form">
+
+          <div class="form-row full-width">
+            <label for="name">Workout Name</label>
+            <input id="name" type="text" required />
+          </div>
+
+          <div class="form-row two-col">
+            <div>
+              <label for="muscleGroup">Muscle Group</label>
+              <select id="muscleGroup" required>
+                <option value="">Select</option>
+                <option>Arms</option>
+                <option>Back</option>
+                <option>Chest</option>
+                <option>Legs</option>
+                <option>Shoulders</option>
+                <option>Core</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="difficulty">Difficulty</label>
+              <select id="difficulty" required>
+                <option value="">Select</option>
+                <option>Easy</option>
+                <option>Moderate</option>
+                <option>Hard</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row full-width">
+            <label for="imageUrl">Image URL (optional)</label>
+            <input id="imageUrl" type="text" />
+          </div>
+
+          <div class="form-row full-width">
+            <label for="description">Description</label>
+            <textarea id="description" rows="4"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-green">Save</button>
+            <button type="button" class="btn btn-gray" id="cancelEdit">Cancel</button>
+          </div>
+
+        </form>
+
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- Image preview script -->
+  <script>
+    const urlInput = document.getElementById("imageUrl");
+    const imgPreview = document.getElementById("previewImgEdit");
+    const placeholder = document.getElementById("previewPlaceholderEdit");
+
+    function updatePreview(url) {
+      if (!url) {
+        imgPreview.src = "";
+        imgPreview.classList.add("hidden");
+        placeholder.style.display = "flex";
+        return;
+      }
+
+      imgPreview.src = url;
+      imgPreview.onerror = () => {
+        imgPreview.classList.add("hidden");
+        placeholder.style.display = "flex";
+      };
+
+      imgPreview.onload = () => {
+        imgPreview.classList.remove("hidden");
+        placeholder.style.display = "none";
+      };
+    }
+
+    // Live typing preview
+    urlInput.addEventListener("input", () => {
+      const url = urlInput.value.trim();
+      updatePreview(url);
+    });
+
+    // Cancel button
+    document.getElementById("cancelEdit")?.addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+
+    // Wait for script.js to load existing workout and populate the field
+    // Then update preview automatically
+    const observer = new MutationObserver(() => {
+      const currentUrl = urlInput.value.trim();
+      updatePreview(currentUrl);
+    });
+
+    observer.observe(urlInput, { attributes: true, attributeFilter: ["value"] });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Favourite Workouts Tracker</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="home">
+  <div class="page-wrapper">
+
+    <!-- Header -->
+    <section class="header-panel card">
+      <h1 class="app-title">My Favourite Workouts Tracker</h1>
+      <p class="app-subtitle">Your saved exercises in one place</p>
+
+      <button class="btn btn-primary" onclick="location.href='add.html'">
+        Add Workout
+      </button>
+    </section>
+
+    <!-- List of workout cards -->
+    <section class="list-panel card">
+      <div id="workoutList" class="workout-list">
+        <!-- Cards added through script.js -->
+      </div>
+    </section>
+
+  </div>
+
+ <!-- Delete confirmation box -->
+<div id="modalOverlay" class="modal-overlay hidden">
+  <div class="modal">
+    <h3>Are you sure you want to delete this workout?</h3>
+    <p>
+      Once deleted, you will need to recreate it if you'd like it back.
+    </p>
+    <div class="modal-actions">
+      <button id="cancelDelete" class="btn btn-gray">Cancel</button>
+      <button id="confirmDelete" class="btn btn-red">Delete Workout</button>
+    </div>
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
